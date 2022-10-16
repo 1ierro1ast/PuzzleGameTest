@@ -27,9 +27,7 @@ namespace Codebase.Core.Gameplay
             
             Square square; 
             eventData.pointerDrag.TryGetComponent(out square);
-            square?.SetCurrentParent(this);
-            
-            OnCellFilled();
+            square?.SetCurrentParent(this, OnCellFilled);
         }
 
         protected virtual void OnCellFilled(){}

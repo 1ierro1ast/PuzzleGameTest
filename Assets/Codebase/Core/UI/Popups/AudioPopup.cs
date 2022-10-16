@@ -33,7 +33,7 @@ namespace Codebase.Core.UI.Popups
 
         public void SetVolumeViewValue(float volumeValue)
         {
-            _audioVolumeLabel.text = $"{_labelText} {volumeValue*100:0.0}%";
+            _audioVolumeLabel.text = $"{_labelText} {volumeValue*100:0}%";
             _audioVolume.value = volumeValue;
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -13,6 +14,7 @@ namespace Codebase.Core.Gameplay
         private RectTransform _dragArea;
         private BaseCell _currentParentCell;
         private Canvas _levelCanvas;
+        public bool CanMove => _canMove;
 
         private void Awake()
         {
@@ -43,11 +45,12 @@ namespace Codebase.Core.Gameplay
             Drop();
         }
 
-        public void SetCurrentParent(BaseCell newParentCell)
+        public void SetCurrentParent(BaseCell newParentCell, Action callback)
         {
             if (!_canMove) return;
             if (newParentCell is LevelCell) DisableSquare();
             _currentParentCell = newParentCell;
+            callback?.Invoke();
             Drop();
         }
 

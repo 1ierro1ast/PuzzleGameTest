@@ -1,7 +1,7 @@
 ﻿using System;
 using Codebase.Core.Level;
 using Codebase.Infrastructure.Services.AssetManagement;
-using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace Codebase.Infrastructure.Services.Factories
@@ -10,6 +10,7 @@ namespace Codebase.Infrastructure.Services.Factories
     {
         private readonly IAssetProvider _assetProvider;
         private readonly int _levelsAmount;
+        private Level _cachedLevel;
 
         public LevelFactory(IAssetProvider assetProvider)
         {
@@ -29,14 +30,13 @@ namespace Codebase.Infrastructure.Services.Factories
             {
                 levelPath = levelPath + "Level" + levelNumber;
             }
-            Debug.Log(levelPath);
-            _assetProvider.Instantiate<Level>(levelPath);
+            _cachedLevel = _assetProvider.Instantiate<Level>(levelPath);
             levelOnReady?.Invoke();
         }
 
         public void ClearLevel()
         {
-            Debug.Log("Clear level");
+            if(_cachedLevel != null) Object.Destroy(_cachedLevel.gameObject);
         }
     }
 }
